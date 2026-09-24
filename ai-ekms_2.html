@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI EKMS · Non Operation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    /* =========================================================
+     1. PASTE YOUR DIFY CHATBOT URL HERE
+     In Dify: your app → Publish → Embed Into Site → iframe option.
+     Copy only the src value, e.g. src="http://alb-pfrsmwgpki2t5jqc6s.ap-southeast-3.alb.aliyuncsslbintl.com/chatbot/aWDLn9zd6O6OxiTu"
+     ========================================================= */
+</style>
+<script>
+    const DIFY_CHATBOT_URL = "http://alb-pfrsmwgpki2t5jqc6s.ap-southeast-3.alb.aliyuncsslbintl.com/chatbot/aWDLn9zd6O6OxiTu";
+</script>
+
+<style>
+  :root {
+    --mist: #E9EDF1;
+    --paper: #F7F9FA;
+    --ink: #1B2836;
+    --ink-soft: #5B6875;
+    --line: #D3DAE1;
+    --accent: #2E6B6F;
+    --accent-soft: #D9E8E7;
+    --shadow: 0 30px 60px -30px rgba(27, 40, 54, .28);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --mist: #121A22; --paper: #19232D; --ink: #E6ECF1; --ink-soft: #95A3B0;
+      --line: #2A3845; --accent: #7FB9B6; --accent-soft: #1F3334;
+      --shadow: 0 30px 60px -30px rgba(0, 0, 0, .6);
+    }
+  }
+  *, *::before, *::after { box-sizing: inherit; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--mist);
+    color: var(--ink);
+    font-family: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .shell {
+    display: grid;
+    grid-template-columns: minmax(280px, 380px) 1fr;
+    gap: clamp(24px, 4vw, 64px);
+    height: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: clamp(20px, 3.5vw, 48px);
+  }
+
+  /* ---------- Left: identity ---------- */
+  .intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-block: 8px;
+  }
+  .mark {
+    width: 44px; height: 44px;
+    color: var(--accent);
+    overflow: visible;
+  }
+
+  /* ---------- Animated mark ----------
+     1. On load the ring and triangle draw themselves in.
+     2. Then the knowledge network keeps moving: the triangle
+        turns slowly, the three nodes pulse in turn, and the
+        centre dot breathes. */
+  .mark .ring,
+  .mark .tri {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    animation: draw 1.6s cubic-bezier(.4, 0, .2, 1) both;
+  }
+  .mark .tri { animation-delay: .35s; }
+
+  .mark .orbit {
+    transform-origin: 22px 22px;       /* centre of the viewBox */
+    transform-box: view-box;
+    animation: spin 28s linear 1.6s infinite;
+  }
+  .mark .node {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pulse 3.6s ease-in-out infinite;
+  }
+  .mark .node:nth-of-type(1) { animation-delay: 1.6s; }
+  .mark .node:nth-of-type(2) { animation-delay: 2.8s; }
+  .mark .node:nth-of-type(3) { animation-delay: 4.0s; }
+
+  .mark .core {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: breathe 3.6s ease-in-out 1.6s infinite;
+  }
+
+  @keyframes draw    { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes spin    { to { transform: rotate(360deg); } }
+  @keyframes pulse   { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.55); } }
+  @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.55); opacity: .55; } }
+
+  .title {
+    margin-top: clamp(32px, 8vh, 96px);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-weight: 300;
+    font-size: clamp(3.4rem, 6vw, 5.2rem);
+    line-height: .92;
+    letter-spacing: -.025em;
+  }
+  .fullname {
+    margin-top: 20px;
+    font-family: "Newsreader", Georgia, serif;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    max-width: 22ch;
+  }
+  .scope {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+    padding: 6px 12px 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--ink);
+    width: fit-content;
+  }
+  .scope::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+  }
+  .guide { margin-top: 40px; max-width: 34ch; }
+  .guide p { color: var(--ink-soft); font-size: .95rem; }
+  .foot {
+    margin-top: 40px;
+    font-size: .8rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Right: chat ---------- */
+  .chat {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    min-height: 560px;
+    animation: rise .7s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .chat iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .empty {
+    position: absolute; inset: 0;
+    display: grid; place-content: center;
+    padding: 32px;
+    text-align: center;
+    gap: 12px;
+  }
+  .empty h2 {
+    font-family: "Newsreader", Georgia, serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+  }
+  .empty p { color: var(--ink-soft); max-width: 44ch; margin-inline: auto; }
+  .empty code {
+    font-size: .85rem;
+    background: var(--accent-soft);
+    color: var(--ink);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chat,
+    .mark .ring, .mark .tri, .mark .orbit, .mark .node, .mark .core { animation: none; }
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 860px) {
+    html, body { height: auto; }
+    .shell { grid-template-columns: 1fr; height: auto; gap: 24px; }
+    .title { margin-top: 24px; }
+    .guide, .foot { display: none; }
+    .chat { height: calc(100dvh - 48px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); min-height: 520px; }
+  }
+</style>
+</head>
+<body>
+  <main class="shell">
+    <aside class="intro">
+      <div>
+        <svg class="mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+          <circle class="ring" cx="22" cy="22" r="20.5" stroke="currentColor" stroke-width="1.2" pathLength="1"/>
+          <g class="orbit">
+            <path class="tri" d="M22 12 13 27h18L22 12Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" pathLength="1"/>
+            <circle class="node" cx="22" cy="12" r="2.6" fill="currentColor"/>
+            <circle class="node" cx="13" cy="27" r="2.6" fill="currentColor"/>
+            <circle class="node" cx="31" cy="27" r="2.6" fill="currentColor"/>
+          </g>
+          <circle class="core" cx="22" cy="22" r="1.6" fill="currentColor"/>
+        </svg>
+
+        <h1 class="title">AI<br>EKMS</h1>
+        <p class="fullname">AI Powered Enterprise Knowledge Management System</p>
+        <span class="scope">Non Operation</span>
+
+        <div class="guide">
+          <p>Ask a question in plain language and the assistant will answer from your organisation’s knowledge base, pointing you to the documents it used.</p>
+        </div>
+      </div>
+
+      <p class="foot">Answers are generated by AI. Check important details against the source document.</p>
+    </aside>
+
+    <section class="chat" id="chat" aria-label="Knowledge assistant">
+      <div class="empty" id="empty">
+        <h2>Connect your chatbot</h2>
+        <p>Open this file and replace <code>YOUR_TOKEN_HERE</code> in <code>DIFY_CHATBOT_URL</code> with the iframe link from Dify’s <em>Embed Into Site</em> panel.</p>
+      </div>
+    </section>
+  </main>
+
+<script>
+  (function () {
+    const chat = document.getElementById("chat");
+    if (!DIFY_CHATBOT_URL || DIFY_CHATBOT_URL.includes("YOUR_TOKEN_HERE")) return;
+
+    const frame = document.createElement("iframe");
+    frame.src = DIFY_CHATBOT_URL;
+    frame.title = "AI EKMS knowledge assistant";
+    frame.allow = "microphone";
+    frame.loading = "eager";
+    document.getElementById("empty").remove();
+    chat.appendChild(frame);
+  })();
+</script>
+</body>
+</html>
